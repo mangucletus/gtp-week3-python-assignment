@@ -2,7 +2,7 @@
 
 A comprehensive collection of Python scripts designed to analyze web server log files and extract valuable insights about traffic patterns, security threats, and user behavior. This assignment demonstrates three complementary analysis tools that work together to give you a complete picture of your web server's activity.
 
-##  Analysis Tools Overview
+## 📊 Analysis Tools Overview
 
 ### 1. **IP Address Request Analysis** (`ip-address-request-window.py`) - Question 1
 **Purpose**: Identifies potential suspicious activity by analyzing request frequency patterns
@@ -22,7 +22,7 @@ A comprehensive collection of Python scripts designed to analyze web server log 
 - Identifies optimization opportunities for high-traffic resources
 - Supports performance tuning and caching strategies
 
-##  Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.6 or higher
@@ -30,8 +30,8 @@ A comprehensive collection of Python scripts designed to analyze web server log 
 
 ### Installation
 ```bash
-# Clone or download the assignment
-git clone <repository-url>
+# Clone the assignment repository
+git clone https://github.com/mangucletus/gtp-week3-python-assignment.git
 cd gtp-week3-python-assignment
 
 # Ensure log files exist in each question directory
@@ -85,7 +85,7 @@ gtp-week3-python-assignment/
     └── README.md                      # Detailed endpoint analysis documentation
 ```
 
-##  Sample Results Overview
+## 📈 Sample Results Overview
 
 Based on a sample analysis of 724 total requests:
 
@@ -111,7 +111,7 @@ Safari Browser: 84 requests (11.6%)
 ```
 **Insight**: Simple application with two main endpoints, typical home page and favicon pattern.
 
-##  Use Cases & Applications
+## 🔍 Use Cases & Applications
 
 ### Security Monitoring
 - **Threat Detection**: IP analysis identifies potential attacks or unusual activity
@@ -133,7 +133,7 @@ Safari Browser: 84 requests (11.6%)
 - **Pattern Documentation**: Evidence of normal vs. abnormal traffic patterns
 - **Incident Investigation**: Tools to analyze suspicious activity periods
 
-##  Advanced Usage
+## 🛠️ Advanced Usage
 
 ### Automated Analysis Pipeline
 Create a script to run all analyses automatically:
@@ -201,7 +201,7 @@ def generate_summary_report():
         # Highlight security concerns and optimization opportunities
 ```
 
-##  Configuration Options
+## ⚙️ Configuration Options
 
 ### Log File Format
 All scripts expect standard web server log format:
@@ -231,7 +231,7 @@ elif 'opera' in user_agent_lower:
 clean_endpoint = endpoint  # Don't split on '?'
 ```
 
-##  Troubleshooting
+## 🔧 Troubleshooting
 
 ### Common Issues
 
@@ -258,7 +258,7 @@ The scripts work with most standard web server logs including:
 - **Nginx default log format**
 - **Custom formats** (may require regex modifications)
 
-##  Interpreting Combined Results
+## 📊 Interpreting Combined Results
 
 ### Security Assessment
 - **High IP request counts** + **Bot user agents** + **Unusual endpoints** = Potential attack
@@ -274,7 +274,7 @@ The scripts work with most standard web server logs including:
 - **Endpoint popularity** shows which features users value most
 - **Geographic patterns** (from IP analysis) guide expansion decisions
 
-##  Security Alerts
+## 🚨 Security Alerts
 
 Set up monitoring based on these thresholds:
 
@@ -285,10 +285,10 @@ Set up monitoring based on these thresholds:
 | Unknown user agents | <5% | >20% | Check for new threat vectors |
 | Error endpoint hits | <1% | >10% | Investigate potential probing |
 
-##  Documentation
+## 📚 Documentation
 
 For detailed information about each analysis tool:
-- **Question 1 - IP Analysis**: See `question1/README.md`
-- **Question 2 - User Agent Analysis**: See `question2/README.md`
-- **Question 3 - Endpoint Analysis**: See `question3/README.md`
+- **Question 1 - IP Analysis**: See [`question1/README.md`](question1/README.md)
+- **Question 2 - User Agent Analysis**: See [`question2/README.md`](question2/README.md)
+- **Question 3 - Endpoint Analysis**: See [`question3/README.md`](question3/README.md)
 
