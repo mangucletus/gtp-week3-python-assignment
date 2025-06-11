@@ -1,0 +1,20 @@
+Endpoint Access Analysis
+==============================
+
+Access Count by Method and Endpoint:
+----------------------------------------
+   408 requests ( 56.4%) - GET /
+   316 requests ( 43.6%) - GET /favicon.ico
+
+
+Access Count by Endpoint Only (ignoring HTTP method):
+--------------------------------------------------
+   408 requests ( 56.4%) - /
+   316 requests ( 43.6%) - /favicon.ico
+
+
+Summary Statistics:
+--------------------
+Total requests analyzed: 724
+Unique endpoints (with method): 2
+Unique endpoints (path only): 2
