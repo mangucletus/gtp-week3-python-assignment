@@ -6,35 +6,35 @@ Question 2: Determine the number of requests coming from each user agent type.
 import re
 from collections import defaultdict
 
-# Read the log file
+# Step 1: Read the entire log file into memory
 with open('NodeJsApp.log', 'r') as file:
     log_lines = file.readlines()
 
-# Dictionary to count requests by user agent
+# Step 2: Initialize a dictionary to hold counts of each user agent type
+# defaultdict(int) simplifies incrementing keys that aren't initialized yet
 user_agent_counts = defaultdict(int)
 
-# Regular expression to extract user agent from log entries
-# Assumes format: ... "user-agent-string"
-# User agent typically appears at the end of log lines in quotes
-user_agent_pattern = r'"([^"]*)"[^"]*$'
+# Step 3: Regular expression to extract quoted strings, especially the user agent
+# The user agent is typically the last quoted string in each log line
+user_agent_pattern = r'"([^"]*)"[^"]*$'  # (Note: defined but not used; extraction done via re.findall below)
 
-# Parse each log line to extract user agent
+# Step 4: Parse each log line to classify and count user agent types
 for line in log_lines:
-    line = line.strip()
+    line = line.strip()  # Remove leading/trailing whitespace
     
-    # Look for user agent string (usually the last quoted string)
+    # Extract all quoted fields using regex (e.g., HTTP request, referrer, user agent)
     matches = re.findall(r'"([^"]*)"', line)
     
     if matches and len(matches) >= 2:
-        # User agent is typically the last quoted field after the HTTP request
+        # By convention, the user agent is the last quoted string in most log formats
         user_agent = matches[-1]
         
-        # Skip empty user agents or ones that look like HTTP requests
+        # Ensure it's not empty and doesn't mistakenly capture HTTP verbs
         if user_agent and not user_agent.startswith(('GET', 'POST', 'PUT', 'DELETE')):
-            # Classify user agent type based on common patterns
+            # Normalize the string for easier matching
             user_agent_lower = user_agent.lower()
             
-            # Determine user agent type/category
+            # Classify user agent type based on signature keywords
             if 'chrome' in user_agent_lower:
                 agent_type = 'Chrome Browser'
             elif 'firefox' in user_agent_lower:
@@ -52,47 +52,51 @@ for line in log_lines:
             elif 'postman' in user_agent_lower:
                 agent_type = 'API Testing Tool'
             else:
-                agent_type = 'Other/Unknown'
+                agent_type = 'Other/Unknown'  # Catch-all for unrecognized user agents
             
-            # Count the classified user agent type
+            # Increment the count for the identified agent type
             user_agent_counts[agent_type] += 1
 
-# Also keep track of exact user agent strings for detailed analysis
+# Step 5: (Optional) Gather exact user agent strings for a detailed breakdown
 exact_user_agents = defaultdict(int)
+
 for line in log_lines:
     line = line.strip()
     matches = re.findall(r'"([^"]*)"', line)
     
     if matches and len(matches) >= 2:
         user_agent = matches[-1]
+        
+        # Avoid counting non-agent strings
         if user_agent and not user_agent.startswith(('GET', 'POST', 'PUT', 'DELETE')):
-            exact_user_agents[user_agent] += 1
+            exact_user_agents[user_agent] += 1  # Increment count of exact user agent string
 
-# Write results to output file
+# Step 6: Write both the summary and detailed analysis to an output file
 with open('user_agent_analysis.txt', 'w') as output_file:
     output_file.write("User Agent Analysis\n")
     output_file.write("=" * 30 + "\n\n")
     
-    # Write summary by user agent type
+    # Section: Summary by user agent type (e.g., Chrome, Firefox, etc.)
     output_file.write("Summary by User Agent Type:\n")
     output_file.write("-" * 30 + "\n")
     
-    # Sort by count (descending) for better readability
+    # Sort by number of requests (descending) for better readability
     sorted_types = sorted(user_agent_counts.items(), key=lambda x: x[1], reverse=True)
     
     for agent_type, count in sorted_types:
         output_file.write(f"{agent_type}: {count} requests\n")
     
-    # Write detailed breakdown of exact user agent strings
+    # Section: Detailed breakdown of each exact user agent string
     output_file.write("\n\nDetailed Breakdown (Exact User Agent Strings):\n")
     output_file.write("-" * 50 + "\n")
     
-    # Sort exact user agents by count (descending)
+    # Sort exact strings by frequency (descending)
     sorted_exact = sorted(exact_user_agents.items(), key=lambda x: x[1], reverse=True)
     
     for user_agent, count in sorted_exact:
-        # Truncate very long user agent strings for readability
+        # Truncate very long user agents for readability in the output
         display_agent = user_agent[:100] + "..." if len(user_agent) > 100 else user_agent
         output_file.write(f"{count} requests: {display_agent}\n")
 
+# Final message for the user
 print("User agent analysis complete. Results saved to 'user_agent_analysis.txt'")
